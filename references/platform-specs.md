@@ -56,6 +56,7 @@ Hard requirements:
 ### Adaptive icons (API 26+)
 
 - Canvas **108×108dp** per layer; only the central **72×72dp** is guaranteed visible (outer 18% cropped/masked per device). Visible circle ≈ 66dp diameter.
+- **Don't fill the safe zone.** Art sized to the full 72dp (66.7% of the canvas) touches the mask edge and reads as if it has no padding. Size foreground/monochrome content to **50%** (54dp, `--fit 0.5`) — still well inside the 72dp guarantee, with ~9dp of visible margin on every side.
 - Layer pixel sizes: mdpi 108 → hdpi 162 → xhdpi 216 → xxhdpi 324 → xxxhdpi 432.
 - `mipmap-anydpi-v26/ic_launcher.xml`:
 

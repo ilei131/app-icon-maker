@@ -61,7 +61,7 @@ app-icon-maker — build-icons.mjs
   --bg <value>        Background: "#0B1220" | "linear-gradient(135deg,#a,#b)" | <image file>
   --name <string>     App name, used for metadata/README (default: "App")
   --out <dir>         Output directory (default: ./icon-pack)
-  --fit <0-1>         Adaptive-icon safe-zone fill, default 0.66
+  --fit <0-1>         Adaptive-icon safe-zone fill, default 0.5
   --shape <s>         Legacy icon mask: rounded|squircle|circle|square (default: squircle)
   --radius <0-0.5>    Corner radius for rounded mask (default: 0.225)
   --dark-fg <file>    Optional dedicated dark-mode foreground
@@ -75,7 +75,7 @@ app-icon-maker — build-icons.mjs
 const NAME = String(args.name || 'App');
 const SLUG = String(args.slug || NAME).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'app';
 const OUT = path.resolve(String(args.out || './icon-pack'));
-const FIT = Number(args.fit || 0.66);
+const FIT = Number(args.fit || 0.5);
 const SHAPE = String(args.shape || 'squircle');
 const RADIUS = Number(args.radius || 0.225);
 const PLATFORM = String(args.platform || 'all');

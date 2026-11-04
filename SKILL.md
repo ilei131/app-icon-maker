@@ -48,7 +48,7 @@ node scripts/build-icons.mjs \
 | `--bg <value>` | `#0B1220` · `linear-gradient(145deg,#a,#b)` · path to an image |
 | `--name` / `--slug` | App name / ZIP + folder name |
 | `--out <dir>` | Output directory |
-| `--fit <0-1>` | Adaptive safe-zone fill, default 0.66 (72dp of 108dp) |
+| `--fit <0-1>` | Adaptive foreground/monochrome fill, default 0.50 (54dp of 108dp — leaves visible breathing room inside the 72dp safe zone) |
 | `--shape` | Legacy mask: `squircle` (default) / `rounded` / `circle` / `square`; `--radius` for rounded |
 | `--dark-bg` / `--dark-fg` | Dedicated dark-appearance layer, else auto-derived |
 | `--platform` | `all` / `ios` / `android` / `web` |
@@ -71,7 +71,7 @@ Present the ZIP + `preview.png`. Summarize: platforms covered, file count, integ
 - iOS rejects **any alpha channel** on app icons; the pipeline flattens + strips alpha — don't bypass it.
 - The iOS 1024 marketing icon must be **square, opaque, corner-free**.
 - Play Store: 512×512, 32-bit PNG, ≤ 1 MB — the build fails loudly if exceeded.
-- Adaptive foreground is 108dp with content in the central **72dp**; the outer 18% is cropped per-device. `placeFit` trims margins and auto-fits, so foreground SVGs only need roughly centered art.
+- Adaptive foreground is 108dp with only the central **72dp** guaranteed visible; the outer 18% is cropped per device. `--fit` defaults to **0.50**, not 0.66: filling the full 72dp safe zone makes the art touch the mask edge and look cramped, so content is sized to ~54dp and left with breathing room. `placeFit` trims margins and auto-fits, so foreground art only needs to be roughly centered.
 - `monochrome` layers only generate from a transparent `--fg`; in `--master` mode they are skipped and noted — say so instead of pretending themed icons are covered.
 - Dark/tinted appearance assets are derived automatically; treat them as best-effort and let the user supply `--dark-bg`/`--dark-fg` for brand-critical cases.
 - iOS 26 "Liquid Glass" `.icon` files require Apple Icon Composer (macOS). This skill ships the layered `source/` assets for that workflow; note it when the user asks for glass effects.
